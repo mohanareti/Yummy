@@ -1,0 +1,30 @@
+﻿@model Zomato.DataModels.MenuItem
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<form action="/menus/delete/@Model.Id" method="post">
+    <div class="form">
+        <div class="form-group col-md-6">
+            @Html.LabelFor(m => m.Name)
+
+            @Html.HiddenFor(m => m.Id)
+            @Model.Name
+        </div>
+        <div class="form-group col-md-6">
+            @Html.LabelFor(m => m.Category.CName)
+            @Model.Category.CName
+        <div class="form-group col-md-6">
+            @Html.LabelFor(m => m.Price)
+            @Model.Price
+
+        </div>
+        
+
+    </div>
+        </div>
+    <button type="submit" class="btn btn-danger">Delete </button>
+    <a class="btn btn-dark" href="/menus/aindex">Cancel</a>
+</form>

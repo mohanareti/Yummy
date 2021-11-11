@@ -1,0 +1,125 @@
+﻿@model Zomato.ViewModels.MenuItemsViewModel
+@{
+    ViewBag.Title = "Index";
+}
+<head>
+    <style>
+        tr {
+            height: 45px;
+        }
+
+        .table td, .table th {
+            font-size: 20px;
+            font-family: Calibri;
+            font-display: block;
+        }
+
+        body {
+            background-image: url('../../Images/menuall2.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: 100% 100%;
+        }
+    </style>
+</head>
+<body>
+    <center>
+        <a href="/menus/Index" class="btn btn-primary">Show All</a>
+        <a href="/menus/IndexAt/1" class="btn btn-primary">Apetizers</a>
+        <a href="/menus/IndexAt/2" class="btn btn-primary">Main Course</a>
+        <a href="/menus/IndexAt/3" class="btn btn-primary">Dessert</a>
+        <a href="/menus/IndexAt/4" class="btn btn-primary">Beverages</a>
+    </center>
+    @*<h2>Main Menu</h2>
+        <a href="/Menus/create" class="btn btn-info">Add new food Item</a>*@
+    <br />
+    <br />
+
+    @*<table class="table table-striped border">
+        <tr class="table-secondary">
+            <th>
+                @Html.DisplayNameFor(m => m.Image)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Category.CName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.SubCategory.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Price)
+            </th>
+            <th></th>
+            <th></th>
+            <th></th>
+
+        </tr>*@
+    <div class="container">
+        
+        <table class="table">
+            @foreach (var i in Model.MenuItem)
+            {
+                <tr class="table-condensed">
+                    <td><img src="data:img;base64,@i.Image" width="150" /></td>
+                    <td style="color:white">
+                        @Html.DisplayFor(m => i.Name)
+                        @if ((int)i.Spicyness == 3)
+                        {
+
+                            <i style="color:red;" class="fas fa-pepper-hot tooltipDesign" alt="@i.Spicyness" title="@i.Spicyness"></i>
+
+
+                        }
+                        @if ((int)i.Spicyness == 2)
+                        {
+
+                            <i style="color:orangered;" class="fas fa-pepper-hot tooltipDesign" alt="@i.Spicyness" title="@i.Spicyness"></i>
+
+                        }
+                        @if ((int)i.Spicyness == 1)
+                        {
+
+                            <i style="color:forestgreen;" class="fas fa-pepper-hot tooltipDesign" alt="@i.Spicyness" title="@i.Spicyness"></i>
+
+                        }
+                        <br />
+                        <br />
+                        Category:@Html.DisplayFor(m => i.Category.CName)
+
+                    </td>
+                    <td style="color:white">
+                       
+                    </td>
+                    <td style="color:white">
+                        @Html.DisplayFor(m => i.Price)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Show Details", "Details", "Menus", new { id = i.Id }, new { @class = "btn btn-info" })
+                    </td>
+                    @*<td>
+                            @Html.ActionLink("Edit", "Edit", new { id = i.Id }, "Menus")
+                        </td>*@
+                    @*<td>
+                            @Html.ActionLink("Delete", "Delete", new { id = i.Id }, "Menus")
+                        </td>*@
+                </tr>
+            }
+        </table>
+    </div>
+</body>
+<script>
+    var toolimg = document.getElementsByClassName("tooltipDesign");
+    for (var i = 0; i < toolimg.length; i++) {
+        toolimg[i].title = toolimg[i].title;
+    }
+</script>
+
+@*else
+    {
+        <p>No Menu Items to show</p>
+    }*@
+
+

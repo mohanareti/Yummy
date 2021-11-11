@@ -1,0 +1,63 @@
+﻿@model Zomato.DataModels.MenuItem
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+<form action="/Menus/Edit" method="post" enctype="multipart/form-data">
+    <div class="form">
+        <div class="form-group col-md-6">
+            @Html.LabelFor(m => m.Name)
+            @Html.HiddenFor(m => m.Id)
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group col-md-6">
+            @Html.LabelFor(m => m.Description)
+            @Html.TextBoxFor(m => m.Description, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group col-md-6">
+            @Html.LabelFor(m => m.Spicyness)
+            @Html.EnumDropDownListFor(m => m.Spicyness, new { htmlAttributes = new { @class = "form-control" } })
+
+        </div>
+        <div class="form-group">
+            <label for="Image">Image</label>
+            <input type="file" class="form-control-file" name="Image" />
+
+        </div>
+        <div class="form-group col-md-6">
+            @Html.LabelFor(m => m.CategoryId)
+            @*@Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.Categories, "CId", "CName"), "select dept name", new { @class = "form-control" })*@
+            <select class="form-control" id="CategoryId" name="CategoryId">
+                <option value="">please select dept</option>
+                @foreach (var s in ViewBag.cat)
+                {
+                    <option value="@s.CId">@s.CName</option>
+                }
+            </select>
+
+        </div>
+        <div class="form-group col-md-6">
+            @Html.LabelFor(m => m.SubCategoryId)
+            @*@Html.DropDownListFor(m => m.MenuItem.SubCategoryId, new SelectList(Model.SubCategories, "Id", "Name"), "select dept name", new { @class = "form-control" })*@
+            <select class="form-control" id="SubCategoryId" name="SubCategoryId">
+                <option value="">please select dept</option>
+                @foreach (var s in ViewBag.subcat)
+                {
+                    <option value="@s.Id">@s.Name</option>
+                }
+            </select>
+
+        </div>
+        <div class="form-group col-md-6">
+
+            @Html.LabelFor(m => m.Price)
+            @Html.TextBoxFor(m => m.Price, new { @class = "form-control" })
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success">Make Changes</button>
+    <a class="btn btn-dark" href="/Menus/AIndex">Cancel</a>
+</form>

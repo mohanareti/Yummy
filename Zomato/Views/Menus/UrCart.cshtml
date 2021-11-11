@@ -1,0 +1,71 @@
+﻿@model Zomato.ViewModels.MenuItemsViewModel
+@{
+    ViewBag.Title = "UrCart";
+}
+
+<head>
+    <style>
+        body {
+            padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+            background-image: url('/images/pattern.png');
+            background-repeat: repeat;
+            font-family: 'Source Sans Pro', sans-serif;
+        }
+
+        td {
+            font-size: 20px;
+            /*font-family: Calibri;*/
+            font-display: block;
+        }
+    </style>
+</head>
+
+<h2>UrCart</h2>
+<div class="col-4">
+   
+    <table class="table">
+        @{
+            double bag = 0;
+        }
+
+        @foreach (var i in Model.ShoppingCarts)
+        {
+            double Total = 0;
+
+
+            Total = (@i.MenuItem.Price) * @i.Quantity;
+        <tr>
+            <td><img src="data:img;base64,@i.MenuItem.Image" width="150" /></td>
+            <td>
+                <strong>@Html.DisplayFor(m => i.MenuItem.Name)</strong>
+            </td>
+            <td>
+                &#8377; @Html.DisplayFor(m => i.MenuItem.Price) x @Html.DisplayFor(m => i.Quantity)
+            </td>
+
+
+            <td>
+                <p>@Total.ToString("c")</p>
+            </td>
+            <td>
+                <a href="~/Menus/PlusItems?cartId=@i.Id" type="submit" class="btn btn-info"><i class="fas fa-plus-square"></i></a>
+                <a href="~/Menus/MinusItems?cartId=@i.Id" type="submit" class="btn btn-info"><i class="fas fa-minus-square"></i></a>
+                <a href="~/Menus/Remove?cartId=@i.Id" type="submit" class="btn btn-info"><i class="fas fa-trash" style="color:red"></i></a>
+            </td>
+            
+        </tr>
+            bag = bag + Total;
+        } 
+        <tr>
+            <td></td>
+            <td></td>
+        <td style="float:right">Total Amount:@bag.ToString("c")</td>
+            </tr>
+            
+        </table>
+    @*<div style="text-align:end"><a href="/Menus/Index" class="btn btn-info">Back TO Menu</a></div>*@
+    <div style="text-align:end">
+    <a href="/Menus/Index" class="btn btn-info">Back TO Menu</a>        
+    <a href="/Menus/OderSumary" class="btn btn-info" >place Order</a>
+    </div>
+    </div>

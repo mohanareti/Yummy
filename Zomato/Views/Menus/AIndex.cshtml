@@ -1,0 +1,48 @@
+﻿@model Zomato.ViewModels.MenuItemsViewModel
+@{
+    ViewBag.Title = "AIndex";
+}
+
+<h2>ADmin Mode</h2>
+
+
+<a href="/Menus/create" class="btn btn-info">Add new food Item</a>
+<br/>
+<br/>
+<div class="container">
+    <table class="table">
+        @foreach (var i in Model.MenuItem)
+        {
+            <tr class="table-condensed">
+                <td><img src="data:img;base64,@i.Image" width="150" /></td>
+                <td >
+                    <strong> @Html.DisplayFor(m => i.Name)</strong>
+                    <br />
+                    <br />
+                    Category:@Html.DisplayFor(m => i.Category.CName)
+                </td>
+                <td >
+                    <i style="color: yellow;" class="fas fa-pepper-hot"></i>
+                    @Html.DisplayFor(m => i.Spicyness)
+                </td>
+                <td>
+                    &#8377; @Html.DisplayFor(m => i.Price)
+                </td>
+
+                <td>
+
+
+                    @Html.ActionLink("Show Details", "Details", "Menus", new { id = i.Id }, new { @class = "btn btn-info" })
+                </td>
+
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = i.Id }, "Menus")
+                </td>
+                <td>
+                    @Html.ActionLink("Delete", "Delete", new { id = i.Id }, "Menus")
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+

@@ -1,0 +1,237 @@
+﻿@model Zomato.ViewModels.MenuItemsViewModel
+@{
+    ViewBag.Title = "OderSumary";
+}
+
+<h2>OrderSummary</h2>
+
+@*<div class="panel-heading">
+    
+    <div>
+        <a href="@Url.Action("UrCart", "Menus")">
+            Cart
+        </a> </div>
+        
+</div>*@
+<head>
+    <style>
+        order-summary__header {
+            border-radius: inherit;
+            border-bottom-left-radius: 0px;
+            border-bottom-right-radius: 0px;
+        }
+
+        order-summary__footer {
+            border-radius: inherit;
+            border-top-left-radius: 0px;
+            border-top-right-radius: 0px;
+        }
+
+        order-summary__item {
+            display: grid;
+            grid-template-columns: var(--order-summary-img-size) 1fr;
+            grid-gap: var(--order-summary-img-margin-right);
+            align-items: center;
+        }
+
+        order-summary__img {
+            display: block;
+            width: var(--order-summary-img-size);
+            height: var(--order-summary-img-size);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: .2s;
+        }
+
+        img{
+            display: block;
+            width: 50%;
+            object-fit: cover;
+        }
+
+        hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-sm);
+        }
+        body{
+            background-color:blanchedalmond;
+        }
+        
+    </style>
+</head>
+<body>
+    <aside class="order-summary bg-contrast-lower radius-md ">
+
+        <div style="text-align:end">
+            <a class="btn btn-primary" href="@Url.Action("UrCart", "Menus")" style=" font-family: cursive; font-size:larger; text-align:end">Edit <i class="sr-only">cart</i></a>
+        </div>
+
+        <div class="card-body">
+            <div class="container rounded p-2">
+                <div class="row">
+                    <div class="col-lg-6 pb-4">
+                        <div class="row">
+                            <h4 class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="text-info">PickUp Details:</span>
+                            </h4>
+                        </div>
+                        <div class="row">
+                            <div class="col-3">
+                                <label>Name</label>
+                            </div>
+                            <div class="col-6">
+                                @Html.TextBoxFor(e => e.HistorySummaries.OrderDate, new { @class = "form-control" })
+
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-3">
+                                <label>Phone</label>
+                            </div>
+                            <div class="col-6">
+                                @Html.TextBoxFor(e => e.HistorySummaries.OrderTotal, new { @class = "form-control" })
+
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-3">
+                                <label>PickUpDate</label>
+                            </div>
+                            <div class="col-6">
+                                @Html.TextBoxFor(e => e.HistorySummaries.PaymentStatus, new { @class = "form-control",@type="date" })
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="col-12 col-lg-5 offset-lg-1">
+                        <table class="table" style="width:600px;">
+                            @{
+                                double bag = 0;
+                            }
+
+                            @foreach (var i in Model.ShoppingCarts)
+                            {
+                                double Total = 0;
+
+
+                                Total = (@i.MenuItem.Price) * @i.Quantity;
+                                <tr>
+
+                                    <td>
+                                        <strong>@Html.DisplayFor(m => i.MenuItem.Name)</strong>
+                                        <br />
+
+                                        &#8377; @Html.DisplayFor(m => i.MenuItem.Price) x @Html.DisplayFor(m => i.Quantity)
+                                    </td>
+                                    <td>
+                                        <p>@Total.ToString("c")</p>
+                                    </td>
+                                </tr>
+                                bag = bag + Total;
+                            }
+
+
+                        </table>
+
+
+
+                        @{
+                            double Final = 0.0;
+                            Final = 100 + bag;
+
+                        }
+                        <div>
+                            <ul class="text-sm flex flex-column gap-xxs">
+                                <li class="flex justify-between"><i>Subtotal</i> <i>@bag.ToString("c")</i></li>
+                                <li class="flex justify-between"><i>Tax</i> <i>$100.00</i></li>
+                                <li class="flex justify-between"><i>Delivery</i> <i>Free</i></li>
+                                <li class="flex justify-between font-bold"><i>Total</i>@Final.ToString("c") <i></i></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        @*<div style="text-align:center"><a href="/Menus/OderSumary" class="btn btn-info">place Order</a></div>*@
+        <!-- Trigger/Open The Modal -->
+        <button id="myBtn" style="margin-left:400px">Payment</button>
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-content" style="padding-left:20px;">
+                    <div class="modal-header">
+                        <span class="close">&times;</span>
+                        <h2 style="margin-left:350px">Transaction Details</h2>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label for="cname"><i class="fa fa-user"></i> Name</label>
+                            <input type="text" id="cname" name="cardname" placeholder="Name On the Card" class="form-control"><br />
+                        </div>
+                        <div class="col-md-3">
+                            <label for="ccnum"><i class="fa fa-credit-card"></i> card number</label>
+                            <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444" class="form-control"><br />
+                        </div>
+                        <div class="col-md-3">
+                            <label for="expmonth">Exp Month</label>
+                            <input type="text" id="expmonth" name="expmonth" placeholder="September" class="form-control"><br />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label for="expyear">Exp Year</label>
+                            <input type="text" id="expyear" name="expyear" placeholder="2018" class="form-control">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="cvv">CVV</label>
+                            <input type="text" id="cvv" name="cvv" placeholder="352" class="form-control">
+                        </div>
+                        <div class="col-md-3">
+                            <i class="fa fa-cc-visa" style="color:navy;"></i>
+                            <i class="fa fa-cc-amex" style="color:blue;"></i>
+                            <i class="fa fa-cc-mastercard" style="color:red;"></i>
+                            <i class="fa fa-cc-discover" style="color:orange;"></i>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="modal-footer">
+                        <div style="margin-right:500px">Grand Total : @String.Format("{0:C}", Final)</div>
+                        <a href="/Menus/CRemove?UName=@ViewBag.uId" type="button" class="btn btn-success" style="margin-right:580px">PAY</a>
+
+                    </div>
+                </div>
+            </div>
+            <script>
+                // Get the modal
+                var modal = document.getElementById("myModal");
+
+                // Get the button that opens the modal
+                var btn = document.getElementById("myBtn");
+
+                // Get the <span> element that closes the modal
+                var span = document.getElementsByClassName("close")[0];
+
+                // When the user clicks the button, open the modal
+                btn.onclick = function () {
+                    modal.style.display = "block";
+                }
+
+                // When the user clicks on <span> (x), close the modal
+                span.onclick = function () {
+                    modal.style.display = "none";
+                }
+                window.onclick = function (event) {
+                    if (event.target == modal) {
+                        modal.style.display = "none";
+                    }
+                }</script>
+
+        </div>
+    </aside>
+
+    </body>
+

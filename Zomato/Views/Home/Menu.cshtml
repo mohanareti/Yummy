@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "Menu";
+}
+
+<h2>Menu</h2>-->
+
+@*<div>
+    <br />
+    @Html.ActionLink("Add New Item to Menu", "Create", "Home", new { @class = "btn btn-primary" })
+    <br />
+</div>*@
+
+@*<div class="container">
+    <table class="table">
+        <tr>
+            <th>Dish Image</th>
+            <th>Dish Name</th>
+            <th>Spice Level</th>
+            <th>Price</th>
+            <th>Discreption</th>
+            <th> </th>
+        </tr>
+        @foreach(var t in Model)
+        {
+    <tr>
+        <td><img src="data:img;base64,@t.Dimg" width="150" height="150" /></td>
+        <td><a href="/home/details/@t.DName">@t.DName</a></td>
+        <td>@Html.DisplayFor(m=>t.Spice)</td>
+        <td>@Html.DisplayFor(m=>t.Price)</td>
+        <td>@Html.DisplayFor(m=>t.Discrp)</td>
+        <td>@Html.ActionLink("Details","Home",new { @t.Id , @class=""})</td>
+
+    </tr>
+        }
+    </table>
+</div>*@

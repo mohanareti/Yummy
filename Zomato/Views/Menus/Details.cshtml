@@ -1,0 +1,198 @@
+﻿@model Zomato.DataModels.MenuItem
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+<h2>Details of Food Item</h2>
+
+<br />
+<head>
+    <style>
+       /* tr {
+            height: 45px;
+            
+            color:aliceblue;
+            font-style:italic;
+
+        }*/
+
+        body.background {
+            background-image: url('../../Images/PicsArt_02-25-02.59.15.jpg');
+           
+            border: 2px solid black;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            background-size: 100%,100%;
+            *
+            opacity: 1;
+        }
+        div.transbox {
+            margin: 30px;
+            background-color: #ffffff;
+            border: 1px solid black;
+            opacity: 0.8;
+        }
+            table.transboxa  {
+                margin: 5%;
+                font-weight: bold;
+                color: #000000;
+                font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+                font-size:20px;
+                
+                
+                
+            }
+        img {
+            display: block;
+            object-fit: cover;
+        }
+        /*.body {
+             background-image: url('../../Images/PicsArt_02-25-02.59.15.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            background-size: 100%,100%;*/
+            /*background-color: antiquewhite;*/
+        /*}*/
+    </style>
+    
+</head>
+<br />
+<h2>@Model.Name Details</h2>
+<br />
+<body class="background">
+    
+
+
+        @using (Html.BeginForm("AddToCart", "Menus", new { ApplicationUserId = ViewBag.user, MenuItemId = Model.Id }))
+        {
+            <div class="transbox">
+            <table class="container-fluid transboxa">
+                <tr class="row-height">
+                    <th width="20%">Item ID : </th>
+                    <td><strong>@Model.Id</strong></td>
+                </tr>
+                <tr>
+                    <th>Item Price : </th>
+                    <td><strong>@Model.Price</strong></td>
+                </tr>
+                <tr>
+                    <th>Item Spice : </th>
+                    <td><strong>@Model.Spicyness</strong></td>
+                </tr>
+                <tr>
+                    <th>Item Type : </th>
+                    <td><strong>@Model.Category.CName</strong></td>
+                </tr>
+                <tr>
+                    <th>Item Category : </th>
+                    <td><strong>@Model.SubCategory.Name</strong></td>
+                </tr>
+                <tr>
+                    <th>Item Description : </th>
+                    <td style="flex-wrap:wrap"><strong>@Model.Description</strong></td>
+                </tr>
+                <tr>
+                    <th>Item Presentation : </th>
+                    <td>
+                        <img src="data:img;base64,@Model.Image" alt="Chicken Biryani" width="200" height="200">
+                    </td>
+                </tr>
+            </table>
+                </div>
+
+            <div class="col-md-4">
+                <button type="submit" value="AddToCart" class="btn btn-primary form-control">Add to Cart</button>
+            </div>
+
+            <a href="/Menus/Index" class="btn btn-info">Back</a>
+        }
+        
+    
+   
+
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<div >
+    <div class="col-md-offset-6" style="float:right;">
+        <img src="data:img;base64,@Model.Image"  width="150" height="150" style="border-radius:5px;border: solid #bbb9b9;" />
+    </div>
+    <div  style="float:left">
+        <div class="col-8">
+            <fieldset disabled>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label class="text-info font-weight-bold">Dish Name:</label>
+                    </div>
+                    <div class="col-8">
+                        @Html.DisplayFor(m => m.Name)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label class="text-info font-weight-bold">Discription:</label>
+                    </div>
+                    <div class="col-8 row">
+                        @Html.DisplayTextFor(m => m.Description)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label class="text-info font-weight-bold">Discription:</label>
+                    </div>
+                    <div class="col-8 row">
+                        @Html.DisplayFor(m => m.Price)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label class="text-info font-weight-bold">Category:</label>
+                    </div>
+                    <div class="col-8 row">
+                        @Html.DisplayFor(m => m.Category.CName)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label class="text-info font-weight-bold">SubCategory:</label>
+                    </div>
+                    <div class="col-8 row">
+                        @Html.DisplayFor(m => m.SubCategory.Name)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label class="text-info font-weight-bold">Spicyness:</label>
+                    </div>
+                    <div class="col-8 row">
+                        @Html.DisplayFor(m => m.Spicyness)
+                    </div>
+                </div>
+            </fieldset>
+            </div>
+
+    </div>
+      </div>*@
+
+
+@*<table class="table">
+        <tr>
+            <th>Dish Name</th>
+        </tr>
+    </table>*@
